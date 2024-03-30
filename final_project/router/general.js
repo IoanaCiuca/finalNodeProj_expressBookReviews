@@ -50,8 +50,9 @@ public_users.get('/isbn/:isbn', async function (req, res) {
   res.send(books[isbn]);
  });*/
   
-// Get book details based on author
-public_users.get('/author/:author',function (req, res) {
+// Get book details based on author using async/await
+public_users.get('/author/:author',async function (req, res) {
+  await wait(5 * 1000);
   const author = req.params.author;
   let books_author = [];
   for(const i in books) {
@@ -65,6 +66,22 @@ public_users.get('/author/:author',function (req, res) {
   }
   return res.status(404).json({message: "Not found"});
 });
+
+//Get book details based on author
+/*public_users.get('/author/:author',function (req, res) {
+  const author = req.params.author;
+  let books_author = [];
+  for(const i in books) {
+    if(books[i].author === author) {
+      books_author.push(books[i]);
+    }
+  }
+  if(books_author) {
+    res.send(books_author);
+    return;
+  }
+  return res.status(404).json({message: "Not found"});
+});*/
 
 // Get all books based on title using async/await
 public_users.get('/title/:title',async function (req, res) {
